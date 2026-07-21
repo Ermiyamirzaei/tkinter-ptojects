@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk,messagebox
 import random
 
-def new_quistion():
+def new_question():
     global num1, num2, answer
     max_num = 10 + score // 20
     num1 = random.randint(1, max_num)
@@ -36,7 +36,7 @@ def check_answer():
     if score > 50:
         win_game()
     else:
-        new_quistion()
+        new_question()
 
 
 def win_game():
@@ -56,7 +56,7 @@ def count_down():
     else:
         score -= 5
         score_lable.config(text=f"Score: {score} ")
-        new_quistion()
+        new_question()
         reset_timer()
 
 def reset_timer():
@@ -101,5 +101,5 @@ high_score_lable.pack()
 
 
 reset_timer()
-new_quistion()
+new_question()
 root.mainloop()

@@ -38,7 +38,7 @@ for text, row, col in buttons:
     btn.grid(row=row, column=col, padx=5,pady=5)
 
 
-clear_btn = btn = Button(root, text="C", width=23, height=2, font=("Arial", 14), command=clear)
+clear_btn = Button(root, text="C", width=23, height=2, font=("Arial", 14), command=clear)
 clear_btn.grid(row=5, column=0, columnspan=4, padx=5, pady=5)
 
 root.mainloop()

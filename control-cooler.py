@@ -38,7 +38,7 @@ for text, row, col in buttons:
 
 
 shutdown = Button(root, text="shut down", width=8, height=2, font=("Arial", 14), command=shut_down)
-shutdown.grid(row=7, column=0, columnspan=2, padx=5, pady=5)
+shutdown.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
 
 
 root.mainloop()

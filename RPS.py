@@ -33,4 +33,16 @@ def check_winner(user, computer):
         return "computer"
 
 class RPSGame:
-    print()
+    def __init__(self, root):
+        self.root = root
+        self.root.title("rock paper scissers")
+
+        self.title = Label(root, text="rock paper scissers", font=("Arial", 18))
+        self.title.pack(pady=10)
+
+        self.info = Label(root, text="choose your move: ", font=("Arial", 18))
+        self.title.pack(pady=10)
+
+root = Tk()
+app = RPSGame(root)
+root.mainloop()

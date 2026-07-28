@@ -61,7 +61,10 @@ class RPSGame:
         self.animate()
 
     def animate(self):
-        ...
+        color = self.title.cget("fg")
+        new_color = "red" if color == "black" else "black"
+        self.title.config(fg=new_color)
+        self.root.after(500, self.animate)
 
     def play(self, user_chioce):
         ...

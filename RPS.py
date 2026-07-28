@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 choices = ["rock","paper","scissors"]
 user_score = 0
-coputer_score = 0
+computer_score = 0
 round_number = 1
 max_round = 5
 user_history = []
@@ -43,13 +43,13 @@ class RPSGame:
         self.info = Label(root, text="choose your move: ", font=("Arial", 18))
         self.title.pack(pady=10)
         #buttons
-        self.btn_rock = Button(root, text="🗿", command=self.play("rock"))
+        self.btn_rock = Button(root, text="🗿", command=lambda:self.play("rock"))
         self.btn_rock.pack(pady=5)
 
-        self.btn_paper = Button(root, text="📃", command=self.play("paper"))
+        self.btn_paper = Button(root, text="📃", command=lambda:self.play("paper"))
         self.btn_paper.pack(pady=5)
 
-        self.btn_scissors = Button(root, text="✂️", command=self.play("scissors"))
+        self.btn_scissors = Button(root, text="✂️", command=lambda:self.play("scissors"))
         self.btn_scissors.pack(pady=5)
 
         self.result_lable = Label(root, text="")
@@ -67,7 +67,31 @@ class RPSGame:
         self.root.after(500, self.animate)
 
     def play(self, user_chioce):
-        ...
+        global user_score, computer_score, round_number
+
+        user_history.append(user_chioce)
+        computer_choice = ai_chioce()
+
+        result = check_winner(user_chioce, computer_choice)
+
+        if result == "draw":
+            self.result_lable.config(text=f"Draw")
+
+        elif result == "user":
+            user_score +=1
+            self.result_lable.config(text=f"You win")
+
+        else:
+            computer_score += 1
+            self.result_lable.config(text=f"Computer Win!!")
+
+        self.score_lable.config(text=f"Score: 🙍‍♂️ {user_score} - {computer_score}🐱‍🚀")
+        round_number += 1
+
+        if round_number > max_round:
+            self.end_game()
+
+
     
     def end_game(self):
         ...

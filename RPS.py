@@ -94,8 +94,15 @@ class RPSGame:
 
     
     def end_game(self):
-        ...
+        if user_score > computer_score:
+            msg = "Congratulations! you win the Game"
+        elif user_score< computer_score:
+            msg = "you lost! computer win(TRY AGAIN)"
+        else:
+            msg = "draw!"
 
+        messagebox.showinfo("game over", msg)
+        self.root.destroy()
 root = Tk()
 app = RPSGame(root)
 root.mainloop()

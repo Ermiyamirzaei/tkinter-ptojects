@@ -43,15 +43,31 @@ class RPSGame:
         self.info = Label(root, text="choose your move: ", font=("Arial", 18))
         self.title.pack(pady=10)
         #buttons
-        self.btn_rock = Button(root, text="🗿", command=...)
+        self.btn_rock = Button(root, text="🗿", command=self.play("rock"))
         self.btn_rock.pack(pady=5)
 
-        self.btn_paper = Button(root, text="📃", command=...)
+        self.btn_paper = Button(root, text="📃", command=self.play("paper"))
         self.btn_paper.pack(pady=5)
 
-        self.btn_scissors = Button(root, text="✂️", command=...)
+        self.btn_scissors = Button(root, text="✂️", command=self.play("scissors"))
         self.btn_scissors.pack(pady=5)
 
+        self.result_lable = Label(root, text="")
+        self.result_lable.pack(pady=5)
+
+        self.score_lable = Label(root, text="score = 0 - 0")
+        self.score_lable.pack(pady=5)
+
+        self.animate()
+
+    def animate(self):
+        ...
+
+    def play(self, user_chioce):
+        ...
+    
+    def end_game(self):
+        ...
 
 root = Tk()
 app = RPSGame(root)

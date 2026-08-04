@@ -66,3 +66,24 @@ class TranslatorApp(ctk.CTK):
 
         with open(HISTORY_FILE, "w") as f:
             json.dump(history, f, indent=2)
+
+
+    def _run_translation(self, text, source_code, target_code, engine):
+        try:
+            result = translate_text(
+                text,
+                source=source_code,
+                target=target_code,
+                engine=engine
+            )
+            self.after(
+                0,
+                self._on_translation_success,
+                text,
+                result,
+                source_code,
+                target_code,
+                engine
+            )
+        except TranslationError as e:
+            self.after(0, self._on_translation_error, str(e))

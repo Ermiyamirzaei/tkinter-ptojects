@@ -42,3 +42,35 @@ def translate_text(text:str, source:str="auto", target:str="fa", engin:str="goog
         raise TranslationError("The requset time out.")
     except requests.exceptions.RequestException as e:
         raise TranslationError(f"Unexpected requst error: {e}")
+
+
+    if response.status_code == 200:
+        data = response.json()
+        result = data.get("result")
+        if result is None:
+            raise TranslationError("server does not response")
+        return result
+
+    try:
+        message = response.json().get("message", "")
+    except ValueError:
+        message = ""
+
+    status_message = {
+        400:"Reqired parameters are mising",
+        401: "Invalid Api token.",
+        402: "the request failed on the server side",
+        403: "Insufficient account credit for the request",
+        404: "Dta not found",
+        409: " The request violates the services rules",
+        429: "Too many request. please wait a momment",
+
+    }
+
+    base_messeage = status_message.get(
+        response.status_code,
+        f"server error (status codr {response.status_code})"
+    )
+
+    full_message = f"{base_messeage} {message}".strip()
+    raise TranslationError(full_message)

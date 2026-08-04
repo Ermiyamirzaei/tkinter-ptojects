@@ -24,3 +24,45 @@ LANGUAGES = {
 LANG_NAMES = list(LANGUAGES.keys())
 
 ENGINES = ["yandex", "google", "microsoft"]
+
+class TranslatorApp(ctk.CTK):
+    def __int__(self):
+        super().__init__()
+
+        self.title("Translator")
+        self.geometry("560x520")
+        self.minsize(480, 480)
+
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
+
+        self._bulid_wigets()
+        self._ensure_history_file()
+
+
+    def _bulid_wigets(self):
+        ...
+
+    def _ensure_history_file(self):
+        if not os.path.exists(HISTORY_FILE):
+            with open(HISTORY_FILE, "w") as f:
+                json.dump([], f, indent=2)
+
+    def _save_history(self, original_text, result, source_code, target_code, engine):
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                history = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            history = []
+
+        history.append({
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "engine": engine,
+            "source": source_code,
+            "target": target_code,
+            "input": original_text,
+            "output": result
+        })
+
+        with open(HISTORY_FILE, "w") as f:
+            json.dump(history, f, indent=2)

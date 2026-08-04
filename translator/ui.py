@@ -87,3 +87,28 @@ class TranslatorApp(ctk.CTK):
             )
         except TranslationError as e:
             self.after(0, self._on_translation_error, str(e))
+
+    def _clear_placeholder(self, even=None)
+        ...
+
+    def swap_languages(self):
+        ...
+
+    def on_translat_click(self):
+        ...
+
+    def _on_translations_succses(self, original_text, result, source_code, target_code, engine):
+        ...
+
+    def _on_translations_error(self):
+        ...
+
+    def copy_result(self):
+        ...
+
+    def clear_all(self):
+        ...
+
+    def toggle_theme(self):
+        ...
+        

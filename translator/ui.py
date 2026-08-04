@@ -111,4 +111,4 @@ class TranslatorApp(ctk.CTK):
 
     def toggle_theme(self):
         ...
-        
+#other method added        

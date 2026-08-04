@@ -74,3 +74,4 @@ def translate_text(text:str, source:str="auto", target:str="fa", engin:str="goog
 
     full_message = f"{base_messeage} {message}".strip()
     raise TranslationError(full_message)
+#api added

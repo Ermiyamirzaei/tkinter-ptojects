@@ -163,12 +163,18 @@ class TranslatorApp(ctk.CTK):
         except TranslationError as e:
             self.after(0, self._on_translation_error, str(e))
 
-    def _clear_placeholder(self, even=None)
-        ...
+    def _clear_placeholder(self, event=None):
+        if self.input_box.get("1.0", "end-1c") == "Type your text here...":
+            self.input_box.delete("1.0", "end")
+
 
     def swap_languages(self):
-        ...
-
+        src, tgt = self.source_menu.get(), self.target_menu.get()
+        if src == "Auto Detect":
+            self.status_label.configure(text="Can't swap when source is Auto Detect.", text_color="orange")
+            return
+        self.source_menu.set(tgt)
+        self.target_menu.set(src)
     def on_translat_click(self):
         ...
 

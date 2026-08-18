@@ -41,8 +41,83 @@ class TranslatorApp(ctk.CTK):
 
 
     def _bulid_wigets(self):
-        ...
+        self.grid_columnconfigure(0, weight = 1)
+        title_label = ctk.CTkLabel(
+            self , text="Translator", font=ctk.CTkFont(size=22, weight="bold")
 
+        )
+        title_label.grid(row=0, column= 0, pady=(15,10))
+
+        lang_frame = ctk.CTkFrame(self, fg_color="transparent")
+        lang_frame.grid(row=1,column=0, padx=20,pady=5, sticky = "ew" )
+        lang_frame.grid_columnconfigure((0,1,2), weight=1)
+
+        from_box = ctk.CTkFrame(self, fg_color="transparent")
+        from_box.grid(roe=0,column=0,sticky="w")
+        ctk.CTkLabel(from_box, text="From:").pack(side="left", padx=(0, 5))
+        self.source_menu = ctk.CTkOptionMenu(from_box,values=LANG_NAMES, width=100)
+        self.source_menu.set("Auto Detect")
+        self.source_menu.pack(side = "left")
+
+        self.swap_btn = ctk.CTkButton(
+            lang_frame, text="change", width=36, command=self.swap_languages
+        )
+        self.swap_btn.grid(row = 0, column=1)
+
+        to_box = ctk.CTkFrame(lang_frame, fg_color="transparent")
+        to_box.grid(row=0, column=2, sticky= "e")
+        ctk.CTkLabel(to_box, text="To").pack(side ="left", padx=(0, 5))
+        self.target_menu = ctk.CTkOptionMenu(to_box, values=LANG_NAMES, width=130)
+        self.target_menu.set("Persian")
+        self.target_menu.pack(side="left")
+
+
+        engine_frame = ctk.CTkFrame(self, fg_color="transparent")
+        engine_frame.grid(row=2, column=0, pady=(5, 5))
+        ctk.CTkLabel(engine_frame, text="Engine:").pack(side="left", padx=(0,5))
+        self.engine_menu = ctk.CTkOptionMenu(engine_frame, values=ENGINES, width=120)
+        self.engine_menu.set("yandex")
+        self.engine_menu.pack(side="left")
+
+                # Input text box
+        self.input_box = ctk.CTkTextbox(self, height=140, wrap="word", font=ctk.CTkFont(size=14))
+        self.input_box.grid(row=3, column=0, padx=20, pady=10, sticky="ew")
+        self.input_box.insert("1.0", "Type your text here...")
+        self.input_box.bind("<FocusIn>", self._clear_placeholder)
+
+        # Translate button
+        self.translate_btn = ctk.CTkButton(
+            self, text="Translate", command=self.on_translate_click, height=36
+        )
+        self.translate_btn.grid(row=4, column=0, pady=5)
+
+        # Output text box
+        self.output_box = ctk.CTkTextbox(self, height=140, wrap="word", font=ctk.CTkFont(size=14))
+        self.output_box.grid(row=5, column=0, padx=20, pady=10, sticky="ew")
+        self.output_box.configure(state="disabled")
+
+        # Status / error message
+        self.status_label = ctk.CTkLabel(self, text="", text_color="gray")
+        self.status_label.grid(row=6, column=0, pady=(0, 5))
+
+        # Bottom button row
+        bottom_frame = ctk.CTkFrame(self, fg_color="transparent")
+        bottom_frame.grid(row=7, column=0, pady=10)
+
+        self.copy_btn = ctk.CTkButton(
+            bottom_frame, text="📋 Copy", width=100, command=self.copy_result
+        )
+        self.copy_btn.pack(side="left", padx=5)
+
+        self.clear_btn = ctk.CTkButton(
+            bottom_frame, text="🗑️ Clear", width=100, command=self.clear_all
+        )
+        self.clear_btn.pack(side="left", padx=5)
+
+        self.theme_btn = ctk.CTkButton(
+            bottom_frame, text="Theme", width=100, command=self.toggle_theme
+        )
+        self.theme_btn.pack(side="left", padx=5)
     def _ensure_history_file(self):
         if not os.path.exists(HISTORY_FILE):
             with open(HISTORY_FILE, "w") as f:
